@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="https://cdn.bootcss.com/jquery/3.4.0/jquery.min.js"></script>
+</head>
+<body>
+	<div class="TEXTBOX">
+		<!-- <span>${name}</span> -->
+	</div>
+	<div class="hhh"></div>
+	<p class="ttt"></p>
+</body>
+</html>
+<script type="text/javascript">
+//es6模板字符串
+    let name1 = '111'
+	let getName = () =>{
+		return 'Rosen Test'
+	}
+
+	let names = ['Rosen','Geely','Jimin']
+	let str1=`
+		<div>
+			<h1 class='red'>${getName()}</h1>
+		</div>
+	`
+	let str2=`
+		<div>
+			<h1>${name1}</h1>
+		</div>
+	`
+	let str3=`
+		<ul>
+			${
+				names.map(nam => `<li>Hi,I am ${nam}</li>`).join(' ')
+			}
+		</ul>
+	`
+	// document.querySelector('body').innerHTML=str
+	$(".TEXTBOX").html(str1);
+	$(".hhh").html(str2)
+	$(".ttt").html(str3)
+//promise结构
+	new Promise((resolve,reject) =>{
+		$.ajax({
+			url:'http://happymmall.com/user/get_user_info.do',
+			type:'post',
+			success(res){
+				resolve(res);
+			},
+			error(err){
+				reject(err)
+			}
+		})
+	}).then((res) =>{
+		console.log('success:',res)
+	},(err) =>{
+		console.log('error',err)
+	})
+//链式promise
+var promiseFn1 = new Promise((resolve,reject) =>{
+	$.ajax({
+			url:'http://happymmall.com/user/get_user_info.do',
+			type:'post',
+			success(res){
+				resolve(res);
+			},
+			error(err){
+				reject(err)
+			}
+		})
+})
+var promiseFn2 = new Promise((resolve,reject) =>{
+	$.ajax({
+			url:'http://happymmall.com/cart/get_cart_product_count.do',
+			type:'post',
+			success(res){
+				resolve(res);
+			},
+			error(err){
+				reject(err);
+			}
+		})
+})
+
+promiseFn1.then(() =>{
+	console.log('promiseFn1 success')
+	return promiseFn2
+}).then(() => {
+	console.log('promiseFn2 success')
+})
+
+//class constuctor
+class Animal{
+	constructor(name){
+		this.name = name;
+	}
+	getName(){
+		return this.name
+	}
+}
+let animal= new Animal('animal test');
+console.log(animal.getName())
+//类的继承
+class Animal2{
+	constructor(){
+		this.name = 'animal';
+	}
+	getName(){
+		return this.name
+	}
+}
+class Cat extends Animal2{
+	constructor(){
+		super()
+		this.name = 'cat'
+	}
+}
+let animal2 = new Animal2();
+let cat = new Cat();
+console.log(animal2.getName())
+console.log(cat.getName())
+
+ //对象的用法
+ var name = 'Rosen'
+     age = 18;
+ var obj = {
+ 	name:name,
+ 	age:age,
+ 	getName:function(){
+ 		return this.name
+ 	},
+ 	getAge:function(){
+ 		return this.age
+ 	}
+ }
+ console.log('对象')
+ console.log(obj)
+ console.log('对象')
+ let name2 = 'Rosen' 
+ 	 age2 = 18;
+ let obj2 = {
+ 	//变量名可以直接用作对象的属性名称
+ 	name2,
+ 	age2,
+ 	getName(){
+ 		return this.name2
+ 	},
+ 	//表达式作为属性名或方法名
+ 	['get' + 'Age'](){
+ 		return this.age2;
+ 	}
+ }
+ console.log('对象2')
+ console.log(obj2)
+ console.log('对象2')
+
+ //Object对象的扩展
+ Object.keys(obj);
+ console.log(Object.keys(obj))
+ // 将两个对象重组
+ Object.assign({a:1},{b:2})
+ console.log(Object.assign({a:1},{b:2}))
+ Object.assign(obj);
+ console.log(Object.assign(obj))
+
+
+</script>
